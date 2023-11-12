@@ -1,0 +1,32 @@
+---
+import LinkHeader from "./LinkHeader.astro";
+const links = [
+  { link: "/", label: "Home" },
+  { link: "/animation-001/", label: "ScrollTrigger First Practice" },
+  { link: "/animation-002/", label: "ScrollTrigger Second Practice" },
+];
+---
+
+<nav
+  class="fixed left-1/2 -translate-x-1/2 px-2 py-2 rounded bg-black text-white transition-all max-w-xs w-full max-h-52 overflow-scroll z-50 h-full -bottom-full"
+>
+  <ul>
+    {links.map(({ link, label }) => <LinkHeader {label} {link} />)}
+  </ul>
+</nav>
+
+<button
+  id="buttonNavigation"
+  class="fixed left-1/2 bottom-10 -translate-x-1/2 px-1 py-3 rounded bg-black text-white w-16 h-16 flex justify-center items-center z-50"
+>
+  <!-- prettier-ignore -->
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-13 h-13"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+</button>
+
+<script>
+  const buttonNavigation = document.getElementById("buttonNavigation") as HTMLButtonElement;
+  const nav = document.querySelector("nav") as HTMLElement;
+  buttonNavigation.addEventListener("click", () => {
+    nav.classList.toggle("!bottom-28");
+  });
+</script>
