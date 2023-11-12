@@ -3,12 +3,14 @@ import LinkHeader from "./LinkHeader.astro";
 const links = [
   { link: "/", label: "Home" },
   { link: "/animation-001/", label: "ScrollTrigger First Practice" },
-  { link: "/animation-002/", label: "ScrollTrigger Second Practice" },
+  { link: "/animation-002/", label: "ScrollTrigger Screens Overlaping" },
+  { link: "/animation-003/", label: "ScrollTrigger Screens Coming" },
+  { link: "/animation-004/", label: "ScrollTrigger Horizontal Scroll" },
 ];
 ---
 
 <nav
-  class="fixed left-1/2 -translate-x-1/2 px-2 py-2 rounded bg-black text-white transition-all max-w-xs w-full max-h-52 overflow-scroll z-50 h-full -bottom-full"
+  class="fixed left-1/2 -translate-x-1/2 px-2 py-2 rounded bg-black text-white transition-all max-w-xs w-full max-h-52 overflow-y-scroll z-50 h-full -bottom-full"
 >
   <ul>
     {links.map(({ link, label }) => <LinkHeader {label} {link} />)}

@@ -1,0 +1,95 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+---
+
+<MainLayout>
+  <div class="relative">
+    <section id="section1" class="sectionPin h-[100vh] bg-green-100">
+      <div class="flex flex-col justify-center items-center h-full gap-10">
+        <h1 class="text-6xl">Main Title</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, doloribus.</p>
+      </div>
+    </section>
+    <div id="containerCool" class="relative overflow-hidden h-[100vh]">
+      <section id="section2" class="sectionPin absolute top-0 w-full h-[100vh] bg-green-200">
+        <div class="flex flex-col justify-center items-center h-full gap-10">
+          <h2 class="text-4xl">First Subtitle</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur adipisci similique officia tenetur sequi iure odit, aperiam eos
+            facere necessitatibus!
+          </p>
+        </div>
+      </section>
+      <section id="section3" class="sectionPin absolute top-0 w-full h-[100vh] bg-green-300">
+        <div class="flex flex-col justify-center items-center h-full gap-10">
+          <h2 class="text-4xl">Second Subtitle</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur adipisci similique officia tenetur sequi iure odit, aperiam eos
+            facere necessitatibus!
+          </p>
+        </div>
+      </section>
+      <section id="section4" class="sectionPin absolute top-0 w-full h-[100vh] bg-green-400">
+        <div class="flex flex-col justify-center items-center h-full gap-10">
+          <h2 class="text-4xl">Third Subtitle</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur adipisci similique officia tenetur sequi iure odit, aperiam eos
+            facere necessitatibus!
+          </p>
+        </div>
+      </section>
+      <section id="section5" class="sectionPin absolute top-0 w-full h-[100vh] bg-green-500">
+        <div class="flex flex-col justify-center items-center h-full gap-10">
+          <h2 class="text-4xl">Fouth Subtitle</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur adipisci similique officia tenetur sequi iure odit, aperiam eos
+            facere necessitatibus!
+          </p>
+        </div>
+      </section>
+      <section id="section6" class="sectionPin absolute top-0 w-full h-[100vh] bg-green-600">
+        <div class="flex flex-col justify-center items-center h-full gap-10">
+          <h2 class="text-4xl">Fifth Subtitle</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur adipisci similique officia tenetur sequi iure odit, aperiam eos
+            facere necessitatibus!
+          </p>
+        </div>
+      </section>
+    </div>
+    <section id="section7" class="sectionPin h-[100vh] bg-green-100">
+      <div class="flex flex-col justify-center items-center h-full gap-10">
+        <h1 class="text-6xl">Main Title</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, doloribus.</p>
+      </div>
+    </section>
+  </div>
+</MainLayout>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+
+  let tl3!: gsap.core.Timeline;
+
+  // const arrSections = gsap.utils.toArray(".sectionPin");
+
+  tl3 = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#containerCool",
+      start: "top top",
+      end: "+=4000px",
+      pin: true,
+      markers: true,
+      scrub: 1,
+    },
+  });
+
+  tl3
+    // .from("#section2", { left: "100%", duration: 1 })
+    .from("#section3", { left: "-100%", duration: 1 })
+    .from("#section4", { top: "100%", duration: 1 })
+    .from("#section5", { top: "-100%", duration: 1 })
+    .from("#section6", { left: "100%", duration: 1 });
+</script>
