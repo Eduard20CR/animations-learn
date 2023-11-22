@@ -1,0 +1,240 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+---
+
+<MainLayout>
+  <div id="bg" class="h-[100dvh] w-screen fixed top-0 -z-10">
+    <div
+      id="bg__square"
+      class="absolute h-20 w-20 md:w-60 md:h-60 aspect-square left-3/4 -translate-x-1/2 top-1/2 -translate-y-1/2 rounded overflow-hidden"
+    >
+      <img id="pic1" class="absolute h-full" src="https://picsum.photos/300/300" alt="" width="300" height="300" />
+      <img id="pic2" class="absolute h-full opacity-0 translate-x-10" src="https://picsum.photos/400/400" alt="" width="400" height="400" />
+      <img
+        id="pic3"
+        class="absolute h-full w-full opacity-0 translate-x-10 block max-w-none"
+        src="https://picsum.photos/1000/1000"
+        alt=""
+        width="1000"
+        height="1000"
+      />
+    </div>
+  </div>
+  <div class="px-5">
+    <section id="section1" class="relatice z-50 h-[100dvh]">
+      <div class="flex flex-col justify-center items-center h-full gap-10 w-1/2">
+        <h1 class="text-6xl">Section 1</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, doloribus.</p>
+      </div>
+    </section>
+    <section id="section2" class="relatice z-50 h-[100dvh]">
+      <div class="flex flex-col justify-center items-center h-full gap-10 w-1/2 ml-auto">
+        <h1 class="text-6xl">Section 2</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, doloribus.</p>
+      </div>
+    </section>
+  </div>
+  <section id="section3" class="relatice z-50 h-[100dvh] overflow-hidden relative px-5">
+    <div id="section3__content1" class="relative flex flex-col justify-center items-center h-full gap-10 w-1/2 ml-auto">
+      <h1 class="text-6xl">Section 3</h1>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, doloribus.</p>
+    </div>
+    <div id="section3__content2" class="absolute left-full top-0 flex flex-col justify-center items-center h-full gap-10 w-1/2 ml-auto">
+      <h1 class="text-6xl">Section 4</h1>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, doloribus.</p>
+    </div>
+  </section>
+  <div class="px-5">
+    <section id="section4" class="relatice z-50 h-[100dvh]">
+      <div class="flex flex-col justify-center items-center h-full gap-10 w-1/2">
+        <h1 class="text-6xl">Section 5</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, doloribus.</p>
+      </div>
+    </section>
+  </div>
+</MainLayout>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+
+  let tl1!: gsap.core.Timeline;
+  let tl2!: gsap.core.Timeline;
+  let tl3!: gsap.core.Timeline;
+  let tl4!: gsap.core.Timeline;
+
+  let mm = gsap.matchMedia();
+
+  mm.add("(min-width: 768px)", () => {
+    // ======================================================================================================================================================
+    // Timeline 1
+    // ======================================================================================================================================================
+
+    tl1 = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#section1",
+        start: "top top",
+        end: "bottom top",
+        // markers: true,
+        scrub: true,
+      },
+    });
+    tl1.to("#bg__square", { duration: 1, left: "25%", scale: 2, ease: "none" });
+
+    // ======================================================================================================================================================
+    // Timeline 2
+    // ======================================================================================================================================================
+
+    tl2 = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#section2",
+        start: "top top",
+        end: "bottom top",
+        // markers: true,
+        scrub: true,
+      },
+    });
+    tl2
+      .addLabel("f1", 0.2)
+      .to("#pic1", { duration: 0.1, x: -50, opacity: 0, ease: "power1.inOut" }, "f1")
+      .to("#pic2", { duration: 0.1, x: 0, opacity: 1, ease: "power1.inOut" }, "f1")
+      .addLabel("f2", 0.7)
+      .to("#pic2", { duration: 0.1, x: -50, opacity: 0, ease: "power1.inOut" }, "f2")
+      .to("#pic3", { duration: 0.1, x: 0, opacity: 1, ease: "power1.inOut" }, "f2");
+
+    // ======================================================================================================================================================
+    // Timeline 3
+    // ======================================================================================================================================================
+
+    tl3 = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#section3",
+        start: "top top",
+        end: "bottom top",
+        pin: "#section3",
+        // markers: true,
+        scrub: true,
+      },
+    });
+    tl3
+      .addLabel("f1", 0.2)
+      .to("#section3__content1", { duration: 1, left: "100%", opacity: 0, ease: "power1.inOut" }, "f1")
+      .to("#section3__content2", { duration: 1, left: "50%", opacity: 1, ease: "power1.inOut" }, "f1+=.2");
+
+    // ======================================================================================================================================================
+    // Timeline 4
+    // ======================================================================================================================================================
+
+    tl4 = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#section4",
+        start: "top 80%",
+        end: "bottom bottom",
+        // markers: true,
+        scrub: true,
+      },
+    });
+    tl4
+      .set("#bg__square", {
+        height: "15rem",
+        width: "15rem",
+      })
+      .set("#pic3", {
+        height: "100%",
+        width: "100%",
+        left: 0,
+        x: 0,
+      })
+      .addLabel("f1", 0)
+      .to("#pic3", { width: "auto", left: "50%", x: "-50%" })
+      .to("#bg__square", { duration: 1, left: "75%", scale: 1, ease: "none" }, "f1")
+      .to("#bg__square", { duration: 1, width: "50vw", height: "100vh", ease: "none" });
+  }).add("(max-width: 767px)", () => {
+    console.log("mabile");
+
+    // ======================================================================================================================================================
+    // Timeline 1
+    // ======================================================================================================================================================
+
+    tl1 = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#section1",
+        start: "top top",
+        end: "bottom top",
+        // markers: true,
+        scrub: true,
+      },
+    });
+    tl1.to("#bg__square", { duration: 1, left: "25%", scale: 2, ease: "none" });
+
+    // ======================================================================================================================================================
+    // Timeline 2
+    // ======================================================================================================================================================
+
+    tl2 = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#section2",
+        start: "top top",
+        end: "bottom top",
+        // markers: true,
+        scrub: true,
+      },
+    });
+    tl2
+      .addLabel("f1", 0.2)
+      .to("#pic1", { duration: 0.1, x: -50, opacity: 0, ease: "power1.inOut" }, "f1")
+      .to("#pic2", { duration: 0.1, x: 0, opacity: 1, ease: "power1.inOut" }, "f1")
+      .addLabel("f2", 0.7)
+      .to("#pic2", { duration: 0.1, x: -50, opacity: 0, ease: "power1.inOut" }, "f2")
+      .to("#pic3", { duration: 0.1, x: 0, opacity: 1, ease: "power1.inOut" }, "f2");
+
+    // ======================================================================================================================================================
+    // Timeline 3
+    // ======================================================================================================================================================
+
+    tl3 = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#section3",
+        start: "top top",
+        end: "bottom top",
+        pin: "#section3",
+        // markers: true,
+        scrub: true,
+      },
+    });
+    tl3
+      .addLabel("f1", 0.2)
+      .to("#section3__content1", { duration: 1, left: "100%", opacity: 0, ease: "power1.inOut" }, "f1")
+      .to("#section3__content2", { duration: 1, left: "50%", opacity: 1, ease: "power1.inOut" }, "f1+=.2");
+
+    // ======================================================================================================================================================
+    // Timeline 4
+    // ======================================================================================================================================================
+
+    tl4 = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#section4",
+        start: "top 80%",
+        end: "bottom bottom",
+        // markers: true,
+        scrub: true,
+      },
+    });
+    tl4
+      .set("#bg__square", {
+        height: "5rem",
+        width: "5rem",
+      })
+      .set("#pic3", {
+        height: "100%",
+        width: "100%",
+        left: 0,
+        x: 0,
+      })
+      .addLabel("f1", 0)
+      .to("#pic3", { width: "auto", left: "50%", x: "-50%" })
+      .to("#bg__square", { duration: 1, left: "75%", scale: 1, ease: "none" }, "f1")
+      .to("#bg__square", { duration: 1, width: "50vw", height: "100vh", ease: "none" });
+  });
+</script>

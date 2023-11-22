@@ -6,7 +6,7 @@ import MainLayout from "../../layouts/MainLayout.astro";
   <section id="section0" class="min-h-[50vh] bg-red-200 relative">
     <div id="square0" class="absolute w-10 h-10 left-10 top-10 bg-black text-white flex items-center justify-center">B</div>
   </section>
-  <section id="section1" class="min-h-[100vh] bg-red-100 relative flex overflow-hidden">
+  <section id="section1" class="min-h-[100dvh] bg-red-100 relative flex overflow-hidden">
     <div class="section1Stagger bg-gray-100 text-black flex items-center justify-center flex-1 translate-y-full"></div>
     <div class="section1Stagger bg-gray-200 text-black flex items-center justify-center flex-1 translate-y-full"></div>
     <div class="section1Stagger bg-gray-300 text-black flex items-center justify-center flex-1 translate-y-full"></div>
@@ -68,7 +68,7 @@ import MainLayout from "../../layouts/MainLayout.astro";
       trigger: "#section1",
       toggleActions: "play pause resume reverse",
       start: "top top",
-      end: "bottom 30%",
+      end: "+=2500px",
       // id: "timeline-1",
       // markers: true,
       pin: true,

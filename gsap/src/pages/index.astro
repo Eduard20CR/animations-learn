@@ -3,5 +3,59 @@ import MainLayout from "../layouts/MainLayout.astro";
 ---
 
 <MainLayout>
-  <h1>Hello</h1>
+  <section class="px-5 h-[100dvh] flex justify-center items-center overflow-hidden relative">
+    <div id="circle1" class="absolute aspect-square h-2/5 md:h-2/3 left-full -top-full bg-teal-100 rounded-full"></div>
+    <div id="circle2" class="absolute aspect-square h-2/5 md:h-2/3 right-full -bottom-full bg-teal-200 rounded-full"></div>
+    <h1 class="text-2xl md:text-7xl uppercase font-bold relative z-10 inline">
+      <span id="top" class="text-teal-800 relative">Scarus</span>
+      <br />
+      <span id="under1" class="whitespace-nowrap">
+        <span class="letterAni origin-top inline-block">A</span>
+        <span class="letterAni origin-top inline-block">n</span>
+        <span class="letterAni origin-top inline-block">i</span>
+        <span class="letterAni origin-top inline-block">m</span>
+        <span class="letterAni origin-top inline-block">a</span>
+        <span class="letterAni origin-top inline-block">t</span>
+        <span class="letterAni origin-top inline-block">i</span>
+        <span class="letterAni origin-top inline-block">o</span>
+        <span class="letterAni origin-top inline-block">n</span>
+        <span class="letterAni origin-top inline-block">s</span>
+        <span class="letterAni origin-top inline-block">&nbsp;</span>
+      </span>
+      <span id="under1" class="whitespace-nowrap">
+        <span class="letterAni origin-top inline-block">s</span>
+        <span class="letterAni origin-top inline-block">h</span>
+        <span class="letterAni origin-top inline-block">o</span>
+        <span class="letterAni origin-top inline-block">w</span>
+        <span class="letterAni origin-top inline-block">c</span>
+        <span class="letterAni origin-top inline-block">a</span>
+        <span class="letterAni origin-top inline-block">s</span>
+        <span class="letterAni origin-top inline-block">e</span>
+      </span>
+    </h1>
+  </section>
 </MainLayout>
+
+<script>
+  import gsap from "gsap";
+  let tl: gsap.core.Timeline;
+
+  tl = gsap.timeline();
+
+  tl.set("#top", { left: "-100%" })
+    .set(".letterAni", { rotateX: 90 })
+    .addLabel("f1", 0)
+    .to("#top", { duration: 1.5, left: 0, ease: "power.out" })
+    .to(".letterAni", {
+      duration: 0.5,
+      rotateX: 0,
+      ease: "power.in",
+      stagger: {
+        amount: 0.3,
+        from: "random",
+      },
+    })
+    .addLabel("f2", 1)
+    .to("#circle1", { duration: 1.5, left: 0, top: 0, ease: "power.inOut" }, "f2")
+    .to("#circle2", { duration: 1.5, right: 0, bottom: 0, ease: "power.inOut" }, "f2");
+</script>
