@@ -9,18 +9,18 @@ import MainLayout from "../../layouts/MainLayout.astro";
 <script>
   import * as THREE from "three";
   import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-  import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
+  import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
   import { FontLoader } from "three/addons/loaders/FontLoader.js";
-  import GUI from "lil-gui";
+  // import GUI from "lil-gui";
 
   /**
    * Base
    */
   // Debug
-  const gui = new GUI();
+  // const gui = new GUI();
 
   // Canvas
-  const canvas = document.querySelector("canvas.webgl");
+  const canvas = document.querySelector("canvas.webgl") as HTMLCanvasElement;
 
   // Scene
   const scene = new THREE.Scene();
@@ -143,10 +143,10 @@ import MainLayout from "../../layouts/MainLayout.astro";
   /**
    * Animate
    */
-  const clock = new THREE.Clock();
+  // const clock = new THREE.Clock();
 
   const tick = () => {
-    const elapsedTime = clock.getElapsedTime();
+    // const elapsedTime = clock.getElapsedTime();
 
     // Update controls
     controls.update();
