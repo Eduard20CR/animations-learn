@@ -1,0 +1,12 @@
+---
+import type { ProjectInfo } from "../../data/projects";
+
+interface Props {
+  projectInfo: ProjectInfo;
+}
+const { projectInfo } = Astro.props;
+---
+
+<li>
+  <a href={projectInfo.link}>{projectInfo.label}</a>
+</li>
