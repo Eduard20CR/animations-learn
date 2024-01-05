@@ -2,26 +2,42 @@
 export default {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: "#3D348B",
+        secondary: "#E6AF2E",
+        accent: "#FF5E5B",
+        neutral: "#E0E2DB",
+        "base-100": "#ffffff",
+        info: "#008395",
+        success: "#00896b",
+        warning: "#ffb700",
+        error: "#ff6264",
+        black: "#191716",
+      },
+    },
   },
   plugins: [require("daisyui")],
   daisyui: {
     themes: [
       {
         mytheme: {
-          primary: "#C5EDAC",
-          secondary: "#6CCFF6",
-          neutral: "#e5e7eb",
-          gray: "#757780",
-          white: "#FFFFFC",
-          black: "#001011",
+          primary: "#3D348B",
+          secondary: "#E6AF2E",
+          accent: "#FF5E5B",
+          neutral: "#E0E2DB",
+          "base-100": "#ffffff",
+          info: "#008395",
+          success: "#00896b",
+          warning: "#ffb700",
+          error: "#ff6264",
+          black: "#191716",
         },
       },
     ],
-    base: true, // applies background color and foreground color for root element by default
-    styled: true, // include daisyUI colors and design decisions for all components
-    utils: true, // adds responsive and modifier utility classes
-    prefix: "", // prefix for daisyUI classnames (components, modifiers and responsive class names. Not colors)
-    themeRoot: ":root", // The element that receives theme color CSS variables
+    base: true,
+    styled: true,
+    utils: true,
+    themeRoot: ":root",
   },
 };

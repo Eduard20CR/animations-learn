@@ -5,6 +5,7 @@ export interface ProjectInfo {
 
 export interface GroupInfo {
   title: string;
+  url: string;
   projects: ProjectInfo[];
 }
 
@@ -12,6 +13,7 @@ export interface GroupInfo {
 export const links: GroupInfo[] = [
   {
     title: "GSAP",
+    url: "/gsap",
     projects: [
       { link: "/001-scrolltrigger-first-practice/", label: "Scroll Animation (ScrollTrigger)" },
       { link: "/002-scrolltrigger-screens-overlaping/", label: "Screens Overlaping (ScrollTrigger)" },
@@ -22,6 +24,7 @@ export const links: GroupInfo[] = [
   },
   {
     title: "ThreeJS",
-    projects: [{ link: "/006-threejs-first-practice/", label: "ThreeJS First Practice" }],
+    url: "/threejs",
+    projects: [{ link: "/006-first-practice/", label: "ThreeJS First Practice" }],
   },
 ];

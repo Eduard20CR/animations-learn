@@ -17,7 +17,7 @@ const { links } = Astro.props;
           <summary class="font-bold">{group.title}</summary>
           <ul>
             {group.projects.map((d) => (
-              <Link projectInfo={d} />
+              <Link projectInfo={d} projectGroupUrl={group.url} />
             ))}
           </ul>
         </details>

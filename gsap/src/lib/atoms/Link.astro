@@ -3,10 +3,11 @@ import type { ProjectInfo } from "../../data/projects";
 
 interface Props {
   projectInfo: ProjectInfo;
+  projectGroupUrl: string;
 }
-const { projectInfo } = Astro.props;
+const { projectInfo, projectGroupUrl } = Astro.props;
 ---
 
 <li>
-  <a href={projectInfo.link}>{projectInfo.label}</a>
+  <a href={projectGroupUrl + projectInfo.link}>{projectInfo.label}</a>
 </li>
