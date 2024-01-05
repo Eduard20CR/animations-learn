@@ -3,7 +3,7 @@ import MainLayout from "../../../layouts/MainLayout.astro";
 ---
 
 <MainLayout>
-  <section id="section7" class="h-[100vh] bg-blackg-100 text-white">
+  <section id="section7" class="h-[100vh] bg-blackg-100 text-white px-5">
     <div class="flex flex-col justify-center items-center h-full gap-10">
       <h1 class="text-6xl">Test Title</h1>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, doloribus.</p>
@@ -11,13 +11,13 @@ import MainLayout from "../../../layouts/MainLayout.astro";
   </section>
   <div class="w-full overflow-hidden text-white">
     <div id="containerCool" class="relative w-[700vw] flex overflow-x-hidden">
-      <section id="section1" class="sectionPin w-[100vw] h-[100vh] bg-blackg-200">
+      <section id="section1" class="sectionPin w-[100vw] h-[100vh] bg-blackg-200 px-5">
         <div class="flex flex-col justify-center items-center h-full gap-10">
           <h1 class="text-6xl">Main Title</h1>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, doloribus.</p>
         </div>
       </section>
-      <section id="section2" class="sectionPin top-0 w-[100vw] h-[100vh] bg-blackg-300">
+      <section id="section2" class="sectionPin top-0 w-[100vw] h-[100vh] bg-blackg-300 px-5">
         <div class="flex flex-col justify-center items-center h-full gap-10">
           <h2 class="text-4xl">First Subtitle</h2>
           <p>
@@ -26,7 +26,7 @@ import MainLayout from "../../../layouts/MainLayout.astro";
           </p>
         </div>
       </section>
-      <section id="section3" class="sectionPin top-0 w-[100vw] h-[100vh] bg-blackg-400">
+      <section id="section3" class="sectionPin top-0 w-[100vw] h-[100vh] bg-blackg-400 px-5">
         <div class="flex flex-col justify-center items-center h-full gap-10">
           <h2 class="text-4xl">Second Subtitle</h2>
           <p>
@@ -35,7 +35,7 @@ import MainLayout from "../../../layouts/MainLayout.astro";
           </p>
         </div>
       </section>
-      <section id="section4" class="sectionPin top-0 w-[100vw] h-[100vh] bg-blackg-500">
+      <section id="section4" class="sectionPin top-0 w-[100vw] h-[100vh] bg-blackg-500 px-5">
         <div class="flex flex-col justify-center items-center h-full gap-10">
           <h2 class="text-4xl">Third Subtitle</h2>
           <p>
@@ -44,7 +44,7 @@ import MainLayout from "../../../layouts/MainLayout.astro";
           </p>
         </div>
       </section>
-      <section id="section5" class="sectionPin top-0 w-[100vw] h-[100vh] bg-blackg-600">
+      <section id="section5" class="sectionPin top-0 w-[100vw] h-[100vh] bg-blackg-600 px-5">
         <div class="flex flex-col justify-center items-center h-full gap-10">
           <h2 class="text-4xl">Fouth Subtitle</h2>
           <p>
@@ -53,7 +53,7 @@ import MainLayout from "../../../layouts/MainLayout.astro";
           </p>
         </div>
       </section>
-      <section id="section6" class="sectionPin top-0 w-[100vw] h-[100vh] bg-blackg-700">
+      <section id="section6" class="sectionPin top-0 w-[100vw] h-[100vh] bg-blackg-700 px-5">
         <div class="flex flex-col justify-center items-center h-full gap-10">
           <h2 class="text-4xl">Fifth Subtitle</h2>
           <p>
@@ -62,7 +62,7 @@ import MainLayout from "../../../layouts/MainLayout.astro";
           </p>
         </div>
       </section>
-      <section id="section7" class="sectionPin w-[100vw] h-[100vh] bg-blackg-800">
+      <section id="section7" class="sectionPin w-[100vw] h-[100vh] bg-blackg-800 px-5">
         <div class="flex flex-col justify-center items-center h-full gap-10">
           <h1 class="text-6xl">Main Title</h1>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, doloribus.</p>
@@ -70,7 +70,7 @@ import MainLayout from "../../../layouts/MainLayout.astro";
       </section>
     </div>
   </div>
-  <section id="section7" class="h-[100vh] bg-blackg-900 text-white">
+  <section id="section7" class="h-[100vh] bg-blackg-900 text-white px-5">
     <div class="flex flex-col justify-center items-center h-full gap-10">
       <h1 class="text-6xl">Test Title</h1>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, doloribus.</p>
@@ -101,3 +101,9 @@ import MainLayout from "../../../layouts/MainLayout.astro";
 
   tl3.to(".sectionPin", { x: "-600%", duration: 1, ease: "none" });
 </script>
+
+<style>
+  body {
+    @apply bg-black;
+  }
+</style>
