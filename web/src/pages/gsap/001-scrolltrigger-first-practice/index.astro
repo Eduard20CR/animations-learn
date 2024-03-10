@@ -1,0 +1,108 @@
+---
+import MainLayout from "../../../layouts/MainLayout.astro";
+---
+
+<MainLayout>
+  <section id="section0" class="min-h-[50vh] bg-secondaryg-100 relative">
+    <div id="square0" class="absolute w-10 h-10 left-10 top-10 bg-black text-white flex items-center justify-center">B</div>
+  </section>
+  <section id="section1" class="min-h-[100vh] bg-secondaryg-200 relative flex overflow-hidden">
+    <div class="section1Stagger bg-primaryg-100 text-black flex items-center justify-center flex-1 translate-y-full"></div>
+    <div class="section1Stagger bg-primaryg-200 text-black flex items-center justify-center flex-1 translate-y-full"></div>
+    <div class="section1Stagger bg-primaryg-300 text-black flex items-center justify-center flex-1 translate-y-full"></div>
+    <div class="section1Stagger bg-primaryg-400 text-white flex items-center justify-center flex-1 translate-y-full"></div>
+    <div class="section1Stagger bg-primaryg-500 text-white flex items-center justify-center flex-1 translate-y-full"></div>
+    <div class="section1Stagger bg-primaryg-600 text-white flex items-center justify-center flex-1 translate-y-full"></div>
+    <div class="section1Stagger bg-primaryg-700 text-white flex items-center justify-center flex-1 translate-y-full"></div>
+    <div class="section1Stagger bg-primaryg-800 text-white flex items-center justify-center flex-1 translate-y-full"></div>
+    <div
+      id="section1_BoxCenter"
+      class="section1Stagger bg-primaryg-900 text-white flex items-center justify-center flex-1 translate-y-full z-40 relative"
+    >
+      <div
+        id="section1_BoxCenter_boxToAnimate"
+        class="opacity-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-red-50 rounded"
+      >
+        <p id="section1_BoxCenter_boxToAnimate_text" class="absolute -top-1/2 left-1/2 -translate-x-1/2 px-5 rounded bg-black opacity-0">Hello!</p>
+      </div>
+    </div>
+    <div class="section1Stagger bg-primaryg-800 text-white flex items-center justify-center flex-1 translate-y-full"></div>
+    <div class="section1Stagger bg-primaryg-700 text-white flex items-center justify-center flex-1 translate-y-full"></div>
+    <div class="section1Stagger bg-primaryg-600 text-white flex items-center justify-center flex-1 translate-y-full"></div>
+    <div class="section1Stagger bg-primaryg-500 text-white flex items-center justify-center flex-1 translate-y-full"></div>
+    <div class="section1Stagger bg-primaryg-400 text-white flex items-center justify-center flex-1 translate-y-full"></div>
+    <div class="section1Stagger bg-primaryg-300 text-black flex items-center justify-center flex-1 translate-y-full"></div>
+    <div class="section1Stagger bg-primaryg-200 text-black flex items-center justify-center flex-1 translate-y-full"></div>
+    <div class="section1Stagger bg-primaryg-100 text-black flex items-center justify-center flex-1 translate-y-full"></div>
+  </section>
+  <section id="section2" class="min-h-[50vh] bg-secondaryg-200 relative">
+    <div id="square2" class="absolute w-10 h-10 left-10 top-10 bg-black text-white flex items-center justify-center">B</div>
+  </section>
+  <section id="section3" class="min-h-[50vh] bg-secondaryg-300 relative overflow-x-hidden">
+    <p id="section3_infiniteText" class="whitespace-nowrap text-7xl uppercase tracking-wider absolute top-1/2 -translate-y-1/2">
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias amet assumenda quam architecto cumque cupiditate quos. Lorem ipsum dolor sit,
+      amet consectetur adipisicing elit. Alias amet assumenda quam architecto cumque cupiditate quos
+    </p>
+  </section>
+  <section id="section4" class="min-h-[50vh] bg-secondaryg-400 relative">
+    <div id="square4" class="absolute w-10 h-10 left-10 top-10 bg-black text-white flex items-center justify-center">D</div>
+  </section>
+  <section id="section5" class="min-h-[50vh] bg-secondaryg-500 relative">
+    <div id="square5" class="absolute w-10 h-10 left-10 top-10 bg-black text-white flex items-center justify-center">E</div>
+  </section>
+</MainLayout>
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+
+  let tl1!: gsap.core.Timeline;
+  let tl2!: gsap.core.Timeline;
+
+  // ======================================================================================================================================================
+  // Timeline 1
+  // ======================================================================================================================================================
+
+  tl1 = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#section1",
+      toggleActions: "play pause resume reverse",
+      start: "top top",
+      end: "+=2500px",
+      // id: "timeline-1",
+      // markers: true,
+      pin: true,
+      scrub: 1,
+    },
+  });
+  tl1
+    .addLabel("f1", 0)
+    .to(".section1Stagger", { ease: "power1.inOut", y: 0, duration: 1, stagger: { amount: 0.5, from: "center" } }, "f1")
+    .addLabel("f2", 1.5)
+    .to("#section1_BoxCenter", { duration: 1, flex: 10 }, "f2")
+    .to("#section1_BoxCenter_boxToAnimate", { duration: 1, opacity: 1 }, "f2")
+    .addLabel("f3", 2)
+    .to("#section1_BoxCenter_boxToAnimate", { duration: 1, scale: 2, rotate: 360, ease: "power1.inOut" }, "f3")
+    .addLabel("f4", 3)
+    .to("#section1_BoxCenter_boxToAnimate_text", { duration: 0.3, opacity: 1, y: "-15%", ease: "power1.inOut" }, "f4")
+    .addLabel("f5", 4)
+    .to("#section1_BoxCenter_boxToAnimate_text", { duration: 0 }, "f5");
+
+  // ======================================================================================================================================================
+  // Timeline 2
+  // ======================================================================================================================================================
+
+  tl2 = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#section3",
+      toggleActions: "play pause resume reverse",
+      start: "top bottom",
+      end: "bottom top",
+      // id: "timeline-2",
+      // markers: true,
+      scrub: 1,
+    },
+  });
+
+  tl2.addLabel("f1", 0).to("#section3_infiniteText", { ease: "power1.inOut", x: "-20%" }, "f1");
+</script>

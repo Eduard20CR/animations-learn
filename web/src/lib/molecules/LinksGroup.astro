@@ -1,0 +1,28 @@
+---
+import type { GroupInfo } from "../../data/projects";
+import Divider from "../atoms/Divider.astro";
+import Link from "../atoms/NavLink.astro";
+
+interface Props {
+  links: GroupInfo[];
+}
+const { links } = Astro.props;
+---
+
+{
+  links.map((group) => (
+    <>
+      <li>
+        <details>
+          <summary class="font-bold">{group.title}</summary>
+          <ul>
+            {group.projects.map((d) => (
+              <Link projectInfo={d} projectGroupUrl={group.url} />
+            ))}
+          </ul>
+        </details>
+      </li>
+      <Divider />
+    </>
+  ))
+}
