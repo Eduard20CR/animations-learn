@@ -1,9 +1,0 @@
----
-interface Props {
-  type?: string;
-}
-
-const { type = "divider-primary" } = Astro.props;
----
-
-<div class="divider" class:list={[type]}></div>
