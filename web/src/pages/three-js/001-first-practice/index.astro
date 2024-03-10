@@ -3,179 +3,179 @@ import MainLayout from "../../../layouts/MainLayout.astro";
 ---
 
 <MainLayout>
-  <canvas class="webgl"></canvas>
+    <canvas class="webgl"></canvas>
 </MainLayout>
 
 <script>
-  import * as THREE from "three";
-  import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-  import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
-  import { FontLoader } from "three/addons/loaders/FontLoader.js";
-  // import GUI from "lil-gui";
+    import * as THREE from "three";
+    import {OrbitControls} from "three/examples/jsm/controls/OrbitControls.js";
+    import {TextGeometry} from "three/examples/jsm/geometries/TextGeometry.js";
+    import {FontLoader} from "three/addons/loaders/FontLoader.js";
+    // import GUI from "lil-gui";
 
-  /**
-   * Base
-   */
-  // Debug
-  // const gui = new GUI();
+    /**
+     * Base
+     */
+        // Debug
+        // const gui = new GUI();
 
-  // Canvas
-  const canvas = document.querySelector("canvas.webgl") as HTMLCanvasElement;
+        // Canvas
+    const canvas = document.querySelector("canvas.webgl") as HTMLCanvasElement;
 
-  // Scene
-  const scene = new THREE.Scene();
+    // Scene
+    const scene = new THREE.Scene();
 
-  /**
-   * Textures
-   */
-  const textureLoader = new THREE.TextureLoader();
-  const matcapTexture = textureLoader.load("/img/projects/getting-started-three-js/textures/matcaps/3.png");
+    /**
+     * Textures
+     */
+    const textureLoader = new THREE.TextureLoader();
+    const matcapTexture = textureLoader.load("/projects/three-js/001-getting-started-three-js/textures/matcaps/3.png");
 
-  /**
-   * Object
-   */
+    /**
+     * Object
+     */
 
-  // const cube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial());
+    // const cube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial());
 
-  // scene.add(cube);
+    // scene.add(cube);
 
-  /**
-   * Sizes
-   */
+    /**
+     * Sizes
+     */
 
-  const fontLoader = new FontLoader();
+    const fontLoader = new FontLoader();
 
-  fontLoader.load("/img/projects/getting-started-three-js/fonts/helvetiker_regular.typeface.json", (f) => {
-    const greenMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture });
-    const donutGeometry = new THREE.TorusGeometry(0.3, 0.2, 20, 45);
-    const textGeometry = new TextGeometry("Hello Three.js", {
-      font: f,
-      size: 0.5,
-      height: 0.2,
-      curveSegments: 6,
-      bevelEnabled: true,
-      bevelThickness: 0.03,
-      bevelSize: 0.02,
-      bevelOffset: 0,
-      bevelSegments: 4,
+    fontLoader.load("/projects/three-js/001-getting-started-three-js/fonts/helvetiker_regular.typeface.json", (f) => {
+        const greenMaterial = new THREE.MeshMatcapMaterial({matcap: matcapTexture});
+        const donutGeometry = new THREE.TorusGeometry(0.3, 0.2, 20, 45);
+        const textGeometry = new TextGeometry("Hello Three.js", {
+            font: f,
+            size: 0.5,
+            height: 0.2,
+            curveSegments: 6,
+            bevelEnabled: true,
+            bevelThickness: 0.03,
+            bevelSize: 0.02,
+            bevelOffset: 0,
+            bevelSegments: 4,
+        });
+        textGeometry.center();
+        // textGeometry.computeBoundingBox();
+
+        // textGeometry.translate(
+        //   (textGeometry.boundingBox.max.x - -0.02) * -0.5,
+        //   (textGeometry.boundingBox.max.y - -0.02) * -0.5,
+        //   (textGeometry.boundingBox.max.z - -0.03) * -0.5
+        // );
+        // console.log(textGeometry.boundingBox);
+
+        // textMaterial.wireframe = true;
+        const textMesh = new THREE.Mesh(textGeometry, greenMaterial);
+        scene.add(textMesh);
+
+        for (let i = 0; i < 450; i++) {
+            const donut = new THREE.Mesh(donutGeometry, greenMaterial);
+            donut.position.x = (Math.random() - 0.5) * 10;
+            donut.position.y = (Math.random() - 0.5) * 10;
+            donut.position.z = (Math.random() - 0.5) * 10;
+
+            donut.rotation.x = Math.random() * Math.PI;
+            donut.rotation.y = Math.random() * Math.PI;
+
+            const newScale = Math.max(Math.random(), 0.4);
+            donut.scale.set(newScale, newScale, newScale);
+            scene.add(donut);
+        }
     });
-    textGeometry.center();
-    // textGeometry.computeBoundingBox();
 
-    // textGeometry.translate(
-    //   (textGeometry.boundingBox.max.x - -0.02) * -0.5,
-    //   (textGeometry.boundingBox.max.y - -0.02) * -0.5,
-    //   (textGeometry.boundingBox.max.z - -0.03) * -0.5
-    // );
-    // console.log(textGeometry.boundingBox);
+    /**
+     * Sizes
+     */
+    const sizes = {
+        width: window.innerWidth,
+        height: window.innerHeight,
+    };
 
-    // textMaterial.wireframe = true;
-    const textMesh = new THREE.Mesh(textGeometry, greenMaterial);
-    scene.add(textMesh);
+    window.addEventListener("resize", () => {
+        // Update sizes
+        sizes.width = window.innerWidth;
+        sizes.height = window.innerHeight;
 
-    for (let i = 0; i < 450; i++) {
-      const donut = new THREE.Mesh(donutGeometry, greenMaterial);
-      donut.position.x = (Math.random() - 0.5) * 10;
-      donut.position.y = (Math.random() - 0.5) * 10;
-      donut.position.z = (Math.random() - 0.5) * 10;
+        // Update camera
+        camera.aspect = sizes.width / sizes.height;
+        camera.updateProjectionMatrix();
 
-      donut.rotation.x = Math.random() * Math.PI;
-      donut.rotation.y = Math.random() * Math.PI;
+        // Update renderer
+        renderer.setSize(sizes.width, sizes.height);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    });
 
-      const newScale = Math.max(Math.random(), 0.4);
-      donut.scale.set(newScale, newScale, newScale);
-      scene.add(donut);
-    }
-  });
+    /**
+     * AXIS HELPER
+     */
 
-  /**
-   * Sizes
-   */
-  const sizes = {
-    width: window.innerWidth,
-    height: window.innerHeight,
-  };
+    // const axisHelper = new THREE.AxesHelper(2);
+    // scene.add(axisHelper);
 
-  window.addEventListener("resize", () => {
-    // Update sizes
-    sizes.width = window.innerWidth;
-    sizes.height = window.innerHeight;
+    /**
+     * Camera
+     */
+        // Base camera
+    const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100);
+    // camera.position.x = 1;
+    // camera.position.y = 1;
+    camera.position.z = 3;
+    scene.add(camera);
 
-    // Update camera
-    camera.aspect = sizes.width / sizes.height;
-    camera.updateProjectionMatrix();
+    // Controls
+    const controls = new OrbitControls(camera, canvas);
+    controls.enableDamping = true;
 
-    // Update renderer
+    /**
+     * Renderer
+     */
+    const renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+    });
     renderer.setSize(sizes.width, sizes.height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  });
 
-  /**
-   * AXIS HELPER
-   */
+    /**
+     * Animate
+     */
+        // const clock = new THREE.Clock();
 
-  // const axisHelper = new THREE.AxesHelper(2);
-  // scene.add(axisHelper);
+    const tick = () => {
+            // const elapsedTime = clock.getElapsedTime();
 
-  /**
-   * Camera
-   */
-  // Base camera
-  const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100);
-  // camera.position.x = 1;
-  // camera.position.y = 1;
-  camera.position.z = 3;
-  scene.add(camera);
+            // Update controls
+            controls.update();
 
-  // Controls
-  const controls = new OrbitControls(camera, canvas);
-  controls.enableDamping = true;
+            // Render
+            renderer.render(scene, camera);
 
-  /**
-   * Renderer
-   */
-  const renderer = new THREE.WebGLRenderer({
-    canvas: canvas,
-  });
-  renderer.setSize(sizes.width, sizes.height);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            // Call tick again on the next frame
+            window.requestAnimationFrame(tick);
+        };
 
-  /**
-   * Animate
-   */
-  // const clock = new THREE.Clock();
-
-  const tick = () => {
-    // const elapsedTime = clock.getElapsedTime();
-
-    // Update controls
-    controls.update();
-
-    // Render
-    renderer.render(scene, camera);
-
-    // Call tick again on the next frame
-    window.requestAnimationFrame(tick);
-  };
-
-  tick();
+    tick();
 </script>
 
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-  }
+    * {
+        margin: 0;
+        padding: 0;
+    }
 
-  html,
-  body {
-    overflow: hidden;
-  }
+    html,
+    body {
+        overflow: hidden;
+    }
 
-  .webgl {
-    position: fixed;
-    top: 0;
-    left: 0;
-    outline: none;
-  }
+    .webgl {
+        position: fixed;
+        top: 0;
+        left: 0;
+        outline: none;
+    }
 </style>

@@ -1,0 +1,46 @@
+---
+import MainLayout from './../../../layouts/MainLayout.astro'
+---
+<MainLayout>
+    <div id="appContainer"></div>
+</MainLayout>
+
+
+<script>
+    import {Application, Assets, Graphics, Sprite} from "pixi.js";
+
+    const appContainer = document.getElementById("appContainer");
+    const app = new Application();
+
+    const setup = async () => {
+        await app.init({resizeTo: window});
+        app.renderer.background.color = "0x1099bb";
+        appContainer.appendChild(app.canvas);
+    }
+
+    const preload = async () => {
+        await Assets.load([
+            {alias: 'warrior', src: '/projects/pixi-js/001-pixi-js-learn/warrior.png'},
+            {alias: 'fish1', src: '/projects/pixi-js/001-pixi-js-learn/fish1.png'},
+            {alias: 'fish2', src: '/projects/pixi-js/001-pixi-js-learn/fish2.png'},
+            {alias: 'fish3', src: '/projects/pixi-js/001-pixi-js-learn/fish3.png'}
+        ]);
+    }
+
+
+    (async () => {
+        await setup();
+        await preload();
+
+        const obj = new Graphics().rect(0, 0, 100, 100).fill(0xff0000);
+        app.stage.addChild(obj);
+
+        app.ticker.add((time) => {
+
+
+        });
+
+    })();
+
+
+</script>
