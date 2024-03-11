@@ -1,46 +1,86 @@
 ---
-import MainLayout from './../../../layouts/MainLayout.astro'
+import MainLayout from "./../../../layouts/MainLayout.astro";
 ---
+
 <MainLayout>
-    <div id="appContainer"></div>
+  <div id="appContainer"></div>
 </MainLayout>
 
-
 <script>
-    import {Application, Assets, Graphics, Sprite} from "pixi.js";
+  import { Application, Assets, Sprite } from "pixi.js";
 
-    const appContainer = document.getElementById("appContainer");
-    const app = new Application();
+  const appContainer = document.getElementById("appContainer") as HTMLDivElement;
+  let app: Application;
 
-    const setup = async () => {
-        await app.init({resizeTo: window});
-        app.renderer.background.color = "0x1099bb";
-        appContainer.appendChild(app.canvas);
-    }
+  const setup = async () => {
+    await app.init({ resizeTo: window, background: "#1099bb" });
+    appContainer.appendChild(app.canvas);
+  };
 
-    const preload = async () => {
-        await Assets.load([
-            {alias: 'warrior', src: '/projects/pixi-js/001-pixi-js-learn/warrior.png'},
-            {alias: 'fish1', src: '/projects/pixi-js/001-pixi-js-learn/fish1.png'},
-            {alias: 'fish2', src: '/projects/pixi-js/001-pixi-js-learn/fish2.png'},
-            {alias: 'fish3', src: '/projects/pixi-js/001-pixi-js-learn/fish3.png'}
-        ]);
-    }
+  const preload = async () => {
+    await Assets.load([
+      { alias: "warrior", src: "/projects/pixi-js/001-pixi-js-learn/warrior.png" },
+      { alias: "fish1", src: "/projects/pixi-js/001-pixi-js-learn/fish1.png" },
+      { alias: "fish2", src: "/projects/pixi-js/001-pixi-js-learn/fish2.png" },
+      { alias: "fish3", src: "/projects/pixi-js/001-pixi-js-learn/fish3.png" },
+    ]);
+  };
 
+  (async () => {
+    app = new Application();
+    await setup();
+    await preload();
+    let timer = -1;
 
-    (async () => {
-        await setup();
-        await preload();
+    const fish1 = Sprite.from("fish1");
+    const fish2 = Sprite.from("fish2");
+    const fish3 = Sprite.from("fish3");
+    fish1.y = 50;
+    fish2.y = 300;
+    fish3.y = 700;
+    app.stage.addChild(fish1);
+    app.stage.addChild(fish2);
+    app.stage.addChild(fish3);
 
-        const obj = new Graphics().rect(0, 0, 100, 100).fill(0xff0000);
-        app.stage.addChild(obj);
+    const warrior = Sprite.from("warrior");
+    warrior.y = -1 * (warrior.height / 2);
+    warrior.x = app.screen.width / 2;
+    warrior.anchor.set(0.5);
+    app.stage.addChild(warrior);
 
-        app.ticker.add((time) => {
+    setInterval(() => {
+      timer++;
+      warrior.y = timer * (warrior.height / 2);
 
+      if (warrior.y > app.screen.height + warrior.height / 2) {
+        timer = -1;
+        warrior.y = -1 * (warrior.height / 2);
+      }
+    }, 1000);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") {
+        warrior.x += 100;
+      }
+      if (e.key === "ArrowLeft") {
+        warrior.x -= 100;
+      }
+    });
 
-        });
+    app.ticker.add((time) => {
+      warrior.rotation += 0.01;
+      fish1.x -= 5 * time.deltaTime;
+      fish2.x -= 7 * time.deltaTime;
+      fish3.x -= 10 * time.deltaTime;
 
-    })();
-
-
+      if (fish1.x < 0 - fish1.width) {
+        fish1.x = app.screen.width;
+      }
+      if (fish2.x < 0 - fish2.width) {
+        fish2.x = app.screen.width;
+      }
+      if (fish3.x < 0 - fish3.width) {
+        fish3.x = app.screen.width;
+      }
+    });
+  })();
 </script>
