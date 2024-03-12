@@ -4,16 +4,17 @@ import MainLayout from "./../../../layouts/MainLayout.astro";
 
 <MainLayout>
   <div id="appContainer"></div>
+  <p class="absolute left-1/2 top-10 -translate-x-1/2 pointer-events-none uppercase font-bold text-primaryg-700">Click anywhere in the screen!</p>
 </MainLayout>
 
 <script>
-  import { Application, Assets, Sprite } from "pixi.js";
+  import { Application, Assets, Sprite, Graphics } from "pixi.js";
 
   const appContainer = document.getElementById("appContainer") as HTMLDivElement;
   let app: Application;
 
   const setup = async () => {
-    await app.init({ resizeTo: window, background: "#1099bb" });
+    await app.init({ resizeTo: window, background: "#3D348B" });
     appContainer.appendChild(app.canvas);
   };
 
@@ -26,60 +27,71 @@ import MainLayout from "./../../../layouts/MainLayout.astro";
     ]);
   };
 
+  let audioContext: AudioContext;
+  let analyser: AnalyserNode;
+  let source: AudioBufferSourceNode;
+  let isLoading = false;
+  let isRunning = false;
+
+  let bufferLength: number;
+  let dataArray: Uint8Array;
+
+  const stop = async () => {
+    if (source) {
+      source.stop();
+      source.disconnect();
+      isRunning = false;
+    }
+  };
+
+  const runAudio = async () => {
+    if (isLoading) return;
+    if (isRunning) return stop();
+
+    isLoading = true;
+    audioContext = new window.AudioContext();
+    analyser = audioContext.createAnalyser();
+
+    const res = await fetch("/projects/pixi-js/001-pixi-js-learn/gasolina.mp3");
+    const resBuffer = await res.arrayBuffer();
+    const resDecodeAudioData = await audioContext.decodeAudioData(resBuffer);
+
+    source = audioContext.createBufferSource();
+    source.buffer = resDecodeAudioData;
+    source.connect(analyser);
+    analyser.connect(audioContext.destination);
+    source.start();
+
+    analyser.fftSize = 256; // Puedes ajustar esto según lo detallado que quieras la visualización
+    bufferLength = analyser.frequencyBinCount;
+    dataArray = new Uint8Array(bufferLength);
+
+    isLoading = false;
+    isRunning = true;
+  };
+  appContainer.addEventListener("click", runAudio.bind(this));
+
   (async () => {
     app = new Application();
     await setup();
     await preload();
-    let timer = -1;
 
-    const fish1 = Sprite.from("fish1");
-    const fish2 = Sprite.from("fish2");
-    const fish3 = Sprite.from("fish3");
-    fish1.y = 50;
-    fish2.y = 300;
-    fish3.y = 700;
-    app.stage.addChild(fish1);
-    app.stage.addChild(fish2);
-    app.stage.addChild(fish3);
+    const bars: Graphics[] = [];
+    for (let i = 0; i < 128; i++) {
+      const newShape = new Graphics().rect((i * app.canvas.width) / 128, app.canvas.height, app.canvas.width / 128, 0).fill("#181538");
+      newShape.pivot.set(0, 1);
+      bars.push(newShape);
+      app.stage.addChild(bars[i]);
+    }
 
-    const warrior = Sprite.from("warrior");
-    warrior.y = -1 * (warrior.height / 2);
-    warrior.x = app.screen.width / 2;
-    warrior.anchor.set(0.5);
-    app.stage.addChild(warrior);
-
-    setInterval(() => {
-      timer++;
-      warrior.y = timer * (warrior.height / 2);
-
-      if (warrior.y > app.screen.height + warrior.height / 2) {
-        timer = -1;
-        warrior.y = -1 * (warrior.height / 2);
-      }
-    }, 1000);
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowRight") {
-        warrior.x += 100;
-      }
-      if (e.key === "ArrowLeft") {
-        warrior.x -= 100;
-      }
-    });
-
-    app.ticker.add((time) => {
-      warrior.rotation += 0.01;
-      fish1.x -= 5 * time.deltaTime;
-      fish2.x -= 7 * time.deltaTime;
-      fish3.x -= 10 * time.deltaTime;
-
-      if (fish1.x < 0 - fish1.width) {
-        fish1.x = app.screen.width;
-      }
-      if (fish2.x < 0 - fish2.width) {
-        fish2.x = app.screen.width;
-      }
-      if (fish3.x < 0 - fish3.width) {
-        fish3.x = app.screen.width;
+    app.ticker.add(() => {
+      if (isRunning) {
+        analyser.getByteFrequencyData(dataArray);
+        for (let i = 0; i < bufferLength; i++) {
+          bars[i].clear();
+          bars[i].rect((i * app.canvas.width) / 128, app.canvas.height / 2, app.canvas.width / 128, (((dataArray[i] * 100) / 256) * app.canvas.height) / 100).fill("#181538");
+          bars[i].pivot.y = (((dataArray[i] * 100) / 256) * app.canvas.height) / 100 / 2;
+        }
       }
     });
   })();
