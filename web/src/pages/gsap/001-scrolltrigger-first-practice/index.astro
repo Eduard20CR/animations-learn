@@ -15,14 +15,8 @@ import MainLayout from "../../../layouts/MainLayout.astro";
     <div class="section1Stagger bg-primaryg-600 text-white flex items-center justify-center flex-1 translate-y-full"></div>
     <div class="section1Stagger bg-primaryg-700 text-white flex items-center justify-center flex-1 translate-y-full"></div>
     <div class="section1Stagger bg-primaryg-800 text-white flex items-center justify-center flex-1 translate-y-full"></div>
-    <div
-      id="section1_BoxCenter"
-      class="section1Stagger bg-primaryg-900 text-white flex items-center justify-center flex-1 translate-y-full z-40 relative"
-    >
-      <div
-        id="section1_BoxCenter_boxToAnimate"
-        class="opacity-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-red-50 rounded"
-      >
+    <div id="section1_BoxCenter" class="section1Stagger bg-primaryg-900 text-white flex items-center justify-center flex-1 translate-y-full z-40 relative">
+      <div id="section1_BoxCenter_boxToAnimate" class="opacity-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-red-50 rounded">
         <p id="section1_BoxCenter_boxToAnimate_text" class="absolute -top-1/2 left-1/2 -translate-x-1/2 px-5 rounded bg-black opacity-0">Hello!</p>
       </div>
     </div>
@@ -40,8 +34,7 @@ import MainLayout from "../../../layouts/MainLayout.astro";
   </section>
   <section id="section3" class="min-h-[50vh] bg-secondaryg-300 relative overflow-x-hidden">
     <p id="section3_infiniteText" class="whitespace-nowrap text-7xl uppercase tracking-wider absolute top-1/2 -translate-y-1/2">
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias amet assumenda quam architecto cumque cupiditate quos. Lorem ipsum dolor sit,
-      amet consectetur adipisicing elit. Alias amet assumenda quam architecto cumque cupiditate quos
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias amet assumenda quam architecto cumque cupiditate quos. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias amet assumenda quam architecto cumque cupiditate quos
     </p>
   </section>
   <section id="section4" class="min-h-[50vh] bg-secondaryg-400 relative">
@@ -69,8 +62,8 @@ import MainLayout from "../../../layouts/MainLayout.astro";
       toggleActions: "play pause resume reverse",
       start: "top top",
       end: "+=2500px",
-      // id: "timeline-1",
-      // markers: true,
+      id: "timeline-1",
+      markers: true,
       pin: true,
       scrub: 1,
     },
@@ -98,8 +91,8 @@ import MainLayout from "../../../layouts/MainLayout.astro";
       toggleActions: "play pause resume reverse",
       start: "top bottom",
       end: "bottom top",
-      // id: "timeline-2",
-      // markers: true,
+      id: "timeline-2",
+      markers: true,
       scrub: 1,
     },
   });

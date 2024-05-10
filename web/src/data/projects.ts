@@ -30,6 +30,6 @@ export const links: GroupInfo[] = [
   {
     title: "PixiJS",
     url: "/pixi-js",
-    projects: [{ link: "/001-pixi-js-learn/", label: "ThreeJS First Practice" }],
+    projects: [{ link: "/001-pixi-js-learn/", label: "PixiJS First Practice" }],
   },
 ];
