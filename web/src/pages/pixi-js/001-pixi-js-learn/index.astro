@@ -45,6 +45,7 @@ import MainLayout from "./../../../layouts/MainLayout.astro";
   };
 
   const runAudio = async () => {
+    appContainer.removeEventListener("click", runAudio);
     if (isLoading) return;
     if (isRunning) return stop();
 
@@ -69,7 +70,7 @@ import MainLayout from "./../../../layouts/MainLayout.astro";
     isLoading = false;
     isRunning = true;
   };
-  appContainer.addEventListener("click", runAudio.bind(this));
+  appContainer.addEventListener("click", runAudio);
 
   (async () => {
     app = new Application();
